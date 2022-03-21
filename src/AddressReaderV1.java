@@ -28,7 +28,7 @@ public class AddressReaderV1
 
     
 
-    PersonalDatabase database = new PersonalDatabase();
+    myDatabase database = new myDatabase();
 
     String line="";
     String input="";
