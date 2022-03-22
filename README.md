@@ -1,6 +1,4 @@
 # databaseproj
-AP Java project
-
 ArrayLists Database assignment
 
 Part 1:
@@ -33,7 +31,7 @@ website. Depending on what you think would be interesting data to collect, add f
 PersonalInfo class that you might collect on these people. Create accessor and mutator methods for
 above class so that you have access to all fields.
 
-Create a class myDatabase that extends an ArrayList<PersonalInfo>
+Create a class PersonalDatabase that extends an ArrayList<PersonalInfo>
 
 Add methods: findPeopleFromState(String state) that returns an
 ArrayList<PersonalInfo> containing all the individuals that live in ‘state’.
