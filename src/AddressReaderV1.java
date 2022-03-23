@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.FileWriter;
@@ -59,10 +60,12 @@ public class AddressReaderV1
     //randomly set ages and voting affiliations
     for(int i=0; i<database.size(); i++)
     {
-    	int age = (int)(Math.random()*80)+18;
-    	database.get(i).setAge(age);
-    	database.get(i).setVotingAffiliation((int)(Math.random()*3));
-    
+        String[] ethnicities = {"Hispanic","White","Black or African American", "American Indian and Alaska Native", "Asian", "Native Hawaiian and Other Pacific Islander", "Multiracial"};
+        String[] voting = {"Democratic", "Republican", "Green", "Libertarian", "Non-affiliated"};
+    	database.get(i).setAge((int)(Math.random()*80)+18);
+    	database.get(i).setVotingAffiliation(voting[(int)(Math.random()*voting.length)]);
+        database.get(i).setFavColor(new Color((int)(Math.random() * 256),(int)(Math.random() * 256),(int)(Math.random() * 256)));
+        database.get(i).setEthnicity(ethnicities[(int)(Math.random()*ethnicities.length)]);
     }
     
     while(true)
