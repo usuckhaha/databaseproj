@@ -1,11 +1,9 @@
 import java.awt.*;
 import java.io.FileReader;
 import java.io.BufferedReader;
-import java.io.FileWriter;
-import java.io.PrintWriter;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Scanner;
-import java.util.Collections;
 
 public class AddressReaderV1
 {
@@ -15,7 +13,6 @@ public class AddressReaderV1
     String fileName;
 
     // Open input file:
-
     if (args.length > 0)
       fileName = args[0];
     else
@@ -24,34 +21,18 @@ public class AddressReaderV1
       fileName = keyboard.nextLine().trim();
     }
 
-    BufferedReader inputFile =
-                 new BufferedReader(new FileReader(fileName), 1024);
-
-    
-
+    BufferedReader inputFile = new BufferedReader(new FileReader(fileName), 1024);
     PersonalDatabase database = new PersonalDatabase();
 
-    String line="";
-    String input="";
-    int lineNum = 0;
+    String line;
     
     while ((line = inputFile.readLine()) != null)
     {
-    	    
-      String[] s = line.split("\",");
-      for(int i=0; i<s.length; i++)            
-      	s[i] = s[i].replaceAll("\"","");
-      	
-      String[] zip_phone = s[7].split(",");
-     
-      PersonalInfo info = new PersonalInfo(s[0], s[1], s[3], s[4], s[5], s[6], zip_phone[0], zip_phone[1], s[8], s[9], s[10]);
-      
+      String[] s = line.split("\"");
+         PersonalInfo info = new PersonalInfo(s[1], s[3], s[5], s[7], s[9], s[11], s[13], s[14].substring(1, s[14].length()-1), s[15], s[17], s[19], s[21]);
       if(!database.contains(info))
     	   database.add(info);
-    
-      
     }
-   
     inputFile.close();
    
     
@@ -61,11 +42,12 @@ public class AddressReaderV1
     for(int i=0; i<database.size(); i++)
     {
         String[] ethnicities = {"Hispanic","White","Black or African American", "American Indian and Alaska Native", "Asian", "Native Hawaiian and Other Pacific Islander", "Multiracial"};
-        String[] voting = {"Democratic", "Republican", "Green", "Libertarian", "Non-affiliated"};
+        String[] voting = {"Democrat", "Republican", "Independent"};
     	database.get(i).setAge((int)(Math.random()*80)+18);
     	database.get(i).setVotingAffiliation(voting[(int)(Math.random()*voting.length)]);
         database.get(i).setFavColor(new Color((int)(Math.random() * 256),(int)(Math.random() * 256),(int)(Math.random() * 256)));
         database.get(i).setEthnicity(ethnicities[(int)(Math.random()*ethnicities.length)]);
+        database.get(i).setIp((int)(Math.random()*999) + "." + (int)(Math.random()*999) + "." + (int)(Math.random()*999) + "." + (int)(Math.random()*999));
     }
     
     while(true)
@@ -87,22 +69,25 @@ public class AddressReaderV1
     	     case 1:
     	     	  System.out.println("Which state");
     	     	  String state = keyboard.nextLine();
-    	     	  System.out.println(database.findPeopleFromState(state));
+    	     	  System.out.println(database.findPeopleFromState(state).toString());
     				  break;
     			
     			 case 2: 
-    			 	  System.out.println(database.findAgeRange(70,90));  			 	  
+    			 	  System.out.println(database.findAgeRange(70,90).toString());
     			 	  break;
     			 case 3:
                System.out.println("Which state");
    	     	   state = keyboard.nextLine();
     	     	   System.out.println("Which party? Republican(R), Democrat(D), Independent(I)");
                String vote = keyboard.nextLine();
-              System.out.println(database.findPeopleFromStateVoting(state, vote));
+              System.out.println(database.findPeopleFromState(state).findVoting(vote).toString());
     				  break;
 
     			 case 4: 
     			 //	  something else to search for
+                     System.out.println("Which ethnicity?");
+                     state = keyboard.nextLine();
+                     System.out.println(database.findEthnicity(state).toString());
     			 	  break;
     			 case 5:
     			 	  return;
