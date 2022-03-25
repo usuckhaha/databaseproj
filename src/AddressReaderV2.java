@@ -127,7 +127,7 @@ public class AddressReaderV2 {
                     while(true) {
                         System.out.print("Manage: Enter the person's name (enter 0 to go back): ");
                         String person = keyboard.nextLine();
-                        if(person.equals("0"))
+                        if (person.equals("0"))
                             break;
                         if (database.containsPerson(person.substring(0, person.indexOf(" ")), person.substring(person.indexOf(" ") + 1))) {
                             while (true) {
@@ -177,11 +177,13 @@ public class AddressReaderV2 {
                                         System.out.print("Enter new first name: ");
                                         newInfo = keyboard.nextLine();
                                         database.get(database.findPerson(person.substring(0, person.indexOf(" ")), person.substring(person.indexOf(" ") + 1))).setFirstName(newInfo);
+                                        person = newInfo.concat(" " + person.substring(person.indexOf(" ") + 1));
                                         break;
                                     case 6:
                                         System.out.print("Enter new last name: ");
                                         newInfo = keyboard.nextLine();
                                         database.get(database.findPerson(person.substring(0, person.indexOf(" ")), person.substring(person.indexOf(" ") + 1))).setLastName(newInfo);
+                                        person = person.substring(0, person.indexOf(" ")).concat(" " + newInfo);
                                         break;
                                     case 7:
                                         System.out.print("Enter current age: ");
@@ -244,10 +246,9 @@ public class AddressReaderV2 {
                                     case 0:
                                         break;
                                 }
-                                if(ch==0) break;
+                                if (ch == 0) break;
                             }
-                        }
-                        else {
+                        } else {
                             System.out.println("Person does not exist in this database");
                             break;
                         }
